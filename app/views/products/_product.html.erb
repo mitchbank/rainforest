@@ -1,6 +1,4 @@
-<% @products.each do |product| %>
 	<p>
 		<h3><%= link_to product.name, "/products/#{product.id}" %>, $<%= product.formatted_price %></h3>
 		<%= product.description %>
 	</p>
-<% end %>
