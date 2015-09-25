@@ -14,4 +14,19 @@ $(window).scroll(function() {
 			return $.getScript(url);
 		}
 	});
+// alert("hi!")
+		$('.delete_review').on('click', function(e) {
+				e.preventDefault();
+				alert("this is happening!")
+					var url = $(this).attr("href")
+					$.ajax({
+						url: "/products",
+						dataType: "script",
+						method: "delete",
+						success: function() {
+							alert("test")
+						}
+					});
+					return false;
+			});
 });

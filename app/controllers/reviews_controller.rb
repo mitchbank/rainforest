@@ -8,17 +8,43 @@ class ReviewsController < ApplicationController
   def create
   	@review = @product.reviews.build(review_params)
   	@review.user = current_user
-
-  	if @review.save
-  		redirect_to products_path, notice: "Review created successfully!"
-  	else
-  		render 'products/show'
+    respond_to do |format|
+    	if @review.save
+    		format.html { redirect_to products_path, notice: "Review created successfully!" }
+        format.js {}
+    	else
+    		format.html {render 'products/show'}
+        format.js {}
+      end
   	end
   end
 
+  def edit
+    @review = @product.reviews.find_by(id: params[:id])
+  end
+
+  def update
+    @review = @product.reviews.find_by(id: params[:id])
+
+    if @review.update_attributes(review_params)
+      redirect_to product_path(@product)
+    else
+      render :edit
+    end
+  end
+
   def destroy
-  	@review = Review.find(params[:id])
-  	@review.destroy
+  	@review = Review.find(params[:id])    
+
+    respond_to do |format|
+      if @review.destroy
+        format.html { redirect_to product_path(@product), notice: "Your review was successfully destroyed. Nobody will ever see your internet angst." }
+        format.js {}
+      else
+        format.html { render 'products/show' }
+        format.js {}
+      end
+    end
   end
 
   private

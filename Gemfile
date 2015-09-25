@@ -47,5 +47,7 @@ group :development do
   gem 'spring'
 
   gem 'faker'
+
+  gem 'pry-rails'
 end
 
